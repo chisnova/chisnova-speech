@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.16)
+project(eigen_core_benchmark LANGUAGES CXX)
+
+option(EIGEN_CORE_BENCH_NATIVE "Use the host CPU instruction set" ON)
+add_executable(eigen_core_benchmark eigen_core_benchmark.cc)
+add_executable(eigen_blocking_benchmark eigen_core_benchmark.cc)
+target_compile_definitions(eigen_blocking_benchmark PRIVATE BENCH_BLOCKING)
+foreach(target eigen_core_benchmark eigen_blocking_benchmark)
+    target_compile_features(${target} PRIVATE cxx_std_17)
+    target_include_directories(${target} PRIVATE ../../third_party/eigen)
+    target_compile_definitions(${target} PRIVATE
+        EIGEN_NO_DEBUG EIGEN_MPL2_ONLY EIGEN_UNROLLING_LIMIT=256)
+    if(EIGEN_CORE_BENCH_NATIVE)
+        target_compile_options(${target} PRIVATE -march=native)
+    endif()
+endforeach()

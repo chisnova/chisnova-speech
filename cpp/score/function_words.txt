@@ -1,0 +1,174 @@
+# 발음 점수에 하한(model.json 의 function_word_floor)을 적용할 낱말.
+#
+# 영어는 강세 박자 언어라 이런 낱말은 약해지는 것이 정상이다. "am" 은 /æm/ 이 아니라
+# /əm/ 으로, "a" 는 /eɪ/ 가 아니라 /ə/ 로 뭉개진다. 또박또박 읽는 쪽이 오히려
+# 부자연스러운데 채점기는 그것을 감점한다. 게다가 짧아서 프레임 수가 적어 점수가
+# 크게 흔들린다.
+#
+# 콘텐츠 4,794문장 검수에서 "문장 안에서 가장 낮은 점수를 받은 낱말" 의 27.8% 가
+# 여기 있는 낱말이었다(and 4.7%, a 3.7%, the 2.7%, in 2.1% …).
+#
+# 부정어(not, no, never, don't …)는 일부러 넣지 않았다. 형태는 기능어지만 문장의
+# 뜻을 뒤집는 자리라 잘못 발음하면 알려 주는 편이 낫다.
+#
+# 비교는 소문자로, 앞뒤 문장부호를 떼고 한다("The" "and," "it." 모두 걸린다).
+# 한 줄에 하나. # 로 시작하는 줄과 빈 줄은 건너뛴다.
+
+# 관사
+a
+an
+the
+
+# 접속사·종속절 표지
+and
+or
+but
+so
+as
+than
+that
+if
+because
+while
+when
+where
+which
+who
+whose
+whom
+
+# 전치사
+in
+on
+at
+to
+of
+for
+with
+by
+from
+into
+onto
+over
+under
+above
+below
+about
+after
+before
+between
+through
+during
+without
+within
+against
+along
+among
+across
+toward
+towards
+up
+down
+out
+off
+
+# be 동사
+is
+are
+was
+were
+be
+been
+being
+am
+
+# 조동사
+do
+does
+did
+have
+has
+had
+will
+would
+can
+could
+shall
+should
+may
+might
+must
+
+# 대명사
+i
+you
+he
+she
+it
+we
+they
+me
+him
+her
+us
+them
+myself
+yourself
+himself
+herself
+itself
+ourselves
+themselves
+
+# 한정사·소유격
+my
+your
+his
+its
+our
+their
+this
+these
+those
+some
+any
+each
+every
+both
+
+# 그 밖의 약화되는 낱말
+there
+here
+then
+too
+also
+just
+very
+much
+many
+more
+most
+
+# 축약형 — 실제 발화에서 가장 많이 뭉개지는 형태다
+i'm
+i've
+i'll
+i'd
+you're
+you've
+you'll
+he's
+she's
+it's
+we're
+we've
+we'll
+they're
+they've
+they'll
+that's
+there's
+here's
+what's
+who's
+let's

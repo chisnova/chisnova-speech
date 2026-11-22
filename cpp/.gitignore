@@ -1,0 +1,46 @@
+# Native build products and local build directories
+*.o
+*.d
+*.so
+*.a
+*.dylib
+*.dll
+*.lib
+*.lo
+*.la
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+cmake-build*/
+*_build/
+build_*/
+build/
+/feature/feature_test/bayesian_cmvn_test
+/test/layer_test/layer_tester
+
+# Generated model exports, test fixtures and test output
+*.pt
+*.pth
+*.onnx
+*.tflite
+/export/model_state*/
+/test/*/python/binary
+/test/java_api_test/python/binary_mercury5_backup/
+/test/api_test/compare_out/
+/test/api_test/wav_local.list
+/test/java_api_test/classes/
+/test/java_api_test/asr_api.jar
+/test/java_api_test/manifest.txt
+/test/java_api_test/conan.jsonl.mercury5.bak
+/score/score.log
+/test/java_api_test/python/py.log
+
+# Local tools and caches
+/.claude/
+.vscode/
+.idea/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+.DS_Store

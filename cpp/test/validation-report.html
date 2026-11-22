@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mercury C++ 음성 인식 엔진 수정·검증 보고서</title>
+<style>
+:root{font:16px/1.65 system-ui,sans-serif;color:#182d37;background:#f4f7f7}body{max-width:850px;margin:2rem auto;padding:2rem 3rem;background:white}header{border-top:5px solid #167c70}h1{line-height:1.25}h2{font-size:1.25rem;margin:2rem 0 .55rem}table{width:100%;border-collapse:collapse}th,td{padding:.55rem .7rem;border-bottom:1px solid #d2dddc;text-align:left;vertical-align:top}th{background:#eaf3f1}code,pre{font-family:ui-monospace,monospace;font-size:.88em}pre{background:#f2f5f5;padding:1em;overflow:auto}code{overflow-wrap:anywhere}small{color:#475d67}a{color:#075e59}li{margin:.45rem 0}@media(max-width:600px){body{padding:1rem;margin:0}table{font-size:.9rem}}@media print{body{padding:0;margin:0;max-width:none}pre{white-space:pre-wrap}h2{break-after:avoid}}
+</style>
+<header><p><small>2026년 11월 22일 · Linux x86-64 · Release 빌드</small></p>
+<h1>Mercury C++ 음성 인식 엔진 수정·검증 보고서</h1>
+<p>Linux 배포 라이브러리를 빌드했고, 이전에 실패한 다섯 항목을 수정했다. 통합 러너는 4개 스위트에서 50개 검사를 통과했다. 이전에 두 구현의 2차 전사가 달랐던 WAV도 배포 조건으로 다시 대조했다.</p></header>
+<h2>수정 내역</h2>
+<table><thead><tr><th>항목</th><th>원인과 수정</th></tr></thead><tbody>
+<tr><td>Linux JNI 배포</td><td>Linux <code>asr_api</code> 타깃에 <code>JAVA</code>를 정의해 JNI 래퍼에서 콜백 팩토리를 호출할 수 있게 했다. <a href="../export/CMakeLists.txt">배포 설정</a></td></tr>
+<tr><td>WAV 비교</td><td>모델 manifest에서 필수 <code>phone_size</code>를 읽는다. 비교 도구는 배포 엔진의 청크 크기를 따르고, 러너는 현재 체크포인트와 export를 직접 지정할 수 있다. <a href="api_test/wav_list_compare_test.cc">C++ 비교기</a> · <a href="api_test/run_api_test.sh">실행 스크립트</a></td></tr>
+<tr><td>모듈 테스트</td><td>개별 attention head는 투영된 입력을 받는 현재 API로 호출한다. 고정 시드로 PyTorch 기준 텐서를 생성하고, 현재 모델에서 빠진 레거시 구조는 테스트용 참조 계산으로 검증한다. 기존 26개 사례를 모두 실행하며, 출력 크기 불일치와 비유한 RMS 오차도 실패로 처리한다. <a href="module_test/python/main.py">기준 데이터 생성기</a> · <a href="module_test/module_test.cc">네이티브 검사</a></td></tr>
+<tr><td>CTest 모델 경로</td><td>기본값을 현재 저장소의 Android 모델 자산으로 변경했다. 다른 export는 CMake의 <code>MERCURY_TEST_MODEL_DIR</code>로 지정한다. <a href="api_test/CMakeLists.txt">CTest 등록</a></td></tr>
+<tr><td>독립 점수 테스트</td><td>소스 상대경로와 현재 점수 API에 맞춰 음소 수 및 단어 그룹 인자를 수정했다. 외부 posterior 덤프가 없으면 정답 토큰에 확률 1을 부여한 입력으로 총점 100을 검증한다. <a href="../score/scorer_test.cc">점수 테스트</a></td></tr>
+<tr><td>Java 진입점</td><td><code>new AsrAPI()</code> 전에 <code>System.loadLibrary("asr_api")</code>를 호출한다. Java 스코어 출력을 직접 집계하도록 러너를 고쳐 종료 후에도 로그 감시가 대기하던 문제를 해결했다. <a href="java_api_test/java/com/chisnova/mercury/asr/ApiTest.java">Java 테스트</a> · <a href="run_all_tests.sh">통합 러너</a></td></tr>
+</tbody></table>
+<h2>검증 결과</h2>
+<table><thead><tr><th>실행</th><th>결과</th><th>검사 내용</th></tr></thead><tbody>
+<tr><td>레이어</td><td>16/16</td><td>레이어 출력과 기준 텐서 비교</td></tr>
+<tr><td>모듈</td><td>26/26</td><td>RMS 허용치 1×10⁻⁵, 관측 최대 7.95×10⁻⁷</td></tr>
+<tr><td>C++ API</td><td>3/3</td><td>WAV 한 건 스트리밍, CTC와 2차 디코딩 출력 확인</td></tr>
+<tr><td>Java JNI</td><td>5/5</td><td>음성 다섯 건에서 발음 점수 반환. 대소문자를 무시한 원문 비교는 3/5이며 나머지 두 건은 쉼표만 달랐다.</td></tr>
+<tr><td>기본 CTest</td><td>2/2</td><td>점수 회귀, 엔진 수명주기·예외 처리</td></tr>
+<tr><td>독립 점수 CTest</td><td>1/1</td><td>체크아웃에 포함된 사전과 토크나이저로 채점</td></tr>
+</tbody></table>
+<h2>같은 WAV에서 ‘ah’가 달랐던 이유</h2>
+<p>기존 Python 실행은 발화 전체에서 특징을 계산한 뒤 프레임을 나누고, 별도로 추출한 300 ms 무음 특징을 이어 붙였다. C++은 입력 파형을 청크별로 특징화하고 마지막 오디오 버퍼에 500 ms 무음을 붙인다. 입력을 나누는 시점이 달라 경계 프레임과 인코더 입력이 달라진다. C++의 최종 CTC 탐색도 greedy이므로 비교 모드에서 이 조건까지 맞췄다.</p>
+<p><code>--cpp-runtime</code>과 셸 실행 스크립트는 16 kHz 입력, 1.5초 청크, 마지막 파형의 8,000샘플 무음, attention beam 3을 사용한다. 기존 발화 단위 실험은 Python CLI에서 이 옵션을 생략해 재현할 수 있다. 첫 번째 Stanford WAV에서 CTC는 양쪽 모두 <code>i'm honored …</code>, 2차 전사는 양쪽 모두 <code>i'm ah honored …</code>였다. <a href="../../model/util/stream_conformer_inference.py">Python 추론 경로</a></p>
+<h2>전체 목록에서 발견한 두 번째 차이</h2>
+<p>22번 WAV에서는 같은 인코더 출력을 사용해도 C++이 <code>couldnt</code>, Python이 <code>couldn't</code>를 선택했다. 같은 PyTorch 모델에 기존 C++의 종료 후보 큐 처리를 적용해 <code>couldnt</code>를 재현했다. 두 방식은 종료된 가설이 다음 단계의 빔 폭을 차지하는지, 언제 탐색을 끝내는지가 달랐다.</p>
+<p>C++ 2차 디코더에서도 진행 중인 가설과 종료된 가설을 누적 로그 확률로 함께 정렬해 상위 후보를 보존하고, Python처럼 2차 인코더 프레임 수로 탐색 길이를 제한했다. 해당 WAV를 다시 실행했을 때 두 결과 모두 <code>after six months i couldn't see the value in it</code>였다. <a href="../decoder/asr_stream_conformer.cc">스트리밍 디코더</a></p>
+<h2>Stanford WAV 143건 대조</h2>
+<p>비교 목록의 143건을 모두 디코딩했다. 아래의 전사 일치율은 두 구현 간 재현성을 나타낸다. 정답 대비 단어 오류율(WER)이나 모바일 기기의 성능은 이번 검증 범위 밖이다.</p>
+<table><thead><tr><th>대조 조건</th><th>측정값</th></tr></thead><tbody>
+<tr><td>각 구현이 WAV에서 특징을 독립 추출한 최종 전사</td><td>CTC 143/143 · attention 143/143</td></tr>
+<tr><td>C++ 특징을 Python 인코더에도 입력했을 때</td><td>CTC 프레임 ID 143/143 · CTC 전사 143/143 · attention 전사 143/143</td></tr>
+<tr><td>특징 / 1차 인코더 / 최종 CTC 로짓의 최대 절대 차이</td><td>5.791e-03 / 3.868e-04 / 8.593e-04</td></tr>
+</tbody></table>
+<h2>현재 작업공간 재검증</h2>
+<p>Linux와 JDK 17에서 <code>cpp/export</code>와 <code>cpp/test/api_test</code>의 기본 빌드 전체가 성공했다. 배포용 <code>libasr_api.so</code>를 Java에서 직접 로드해 첫 번째 Conan 음성을 입력했고, <code>onResult</code>가 <code>before i begin</code>을 받았다. 통합 검사 50개와 CTest 3개가 다시 통과했다. 같은 체크포인트로 WAV 143개의 특징을 양쪽에서 독립적으로 추출했을 때 CTC와 attention 전사가 각각 143개 모두 일치했다.</p>
+<ul>
+<li>현재 <code>model/sample_model</code>에는 학습 가중치가 없어 <code>MODEL_PATH</code>를 생략하면 Python 추론이 <code>FileNotFoundError</code>로 종료된다. 아래 재현 명령의 체크포인트 경로를 지정하면 같은 WAV에서 추론이 완료된다.</li>
+<li>발화 종료 진단 도구는 기본 100ms로 실행해 최종 전사를 반환했다. 소스 검토에서 <code>chunk_ms</code>에 0 또는 숫자로 시작하지 않는 문자열을 주면 청크 크기와 읽기 위치의 증가량이 모두 0이 되는 문제를 확인했다. <a href="api_test/ctc_endpoint_diag.cc">진단 도구 소스</a></li>
+</ul>
+<p>이번 검증은 로컬 Linux에서 실행했다. Android와 iOS 실기기는 검증 범위 밖이다. 검증 시점에 <code>cpp/</code>는 Git 미추적 상태였다.</p>
+<h2>재현 명령</h2>
+<p>저장소 루트에서 실행한다. 검증 환경은 GCC 9.4, CMake 3.30.2, JDK 17.0.2, PyTorch 2.10 CPU 추론이다. 아래의 JDK 경로는 이번 머신 기준이다.</p>
+<pre><code>export JAVA_HOME=/usr/local/jdk-17.0.2
+export PATH="$JAVA_HOME/bin:$PATH"
+export OMP_NUM_THREADS=2
+export CMAKE_BUILD_PARALLEL_LEVEL=4
+build=$(mktemp -d)
+export MERCURY_TEST_BUILD_ROOT="$build"
+
+cmake -S cpp/export -B "$build/export" -DCMAKE_BUILD_TYPE=Release
+cmake --build "$build/export" --target asr_api
+bash cpp/test/run_all_tests.sh --continue
+cmake --build "$build/api" --target recognition_score_test stability_test
+ctest --test-dir "$build/api" --output-on-failure
+cmake -S cpp/score -B "$build/score" -DCMAKE_BUILD_TYPE=Release
+cmake --build "$build/score" --target scorer_test
+ctest --test-dir "$build/score" --output-on-failure
+
+export MODEL_PATH="$PWD/arifact/stream_conformer_mercury3_adapt_1p5s"
+export MERCURY_TEST_MODEL_DIR="${MODEL_PATH}_cpp_export"
+export MERCURY_COMPARE_OUT="$build/wav-results"
+bash cpp/test/api_test/run_api_test.sh compare
+bash model/stream_conformer_infer.sh \
+  cpp/test/resource/StevJobs_Standford/processing/SteveJobsStanford00001.wav</code></pre>
+<details><summary>독립 특징 추출로 143건을 다시 대조하는 명령</summary><pre><code>PYTHONPATH=model python3 - &lt;&lt;&#x27;PYTHON&#x27;
+import os
+from itertools import groupby
+from pathlib import Path
+from util.stream_conformer_inference import StreamConformerInference
+m = StreamConformerInference.from_model_path(os.environ[&quot;MODEL_PATH&quot;])
+dump = Path(os.environ[&quot;MERCURY_COMPARE_OUT&quot;])
+listing = Path(&quot;cpp/test/api_test/wav_local.list&quot;)
+matched = [0, 0]
+files = [listing.parent / line for line in listing.read_text().splitlines() if line.strip()]
+for wav in files:
+    py = m.transcribe_wav_file(str(wav), chunk_duration_ms=1500, beam_size=3, cpp_runtime=True)
+    lines = (dump / (wav.stem + &quot;.ids.txt&quot;)).read_text().splitlines()
+    ctc_ids, attn_ids = [list(map(int, line.split())) for line in lines]
+    ctc = [token for token, _ in groupby(ctc_ids) if token != m.wrapper.blank_id]
+    matched[0] += py[&quot;ctc2_text&quot;] == m.decode_token_ids_to_text(ctc)
+    matched[1] += py[&quot;attention_text&quot;] == m.decode_token_ids_to_text(attn_ids)
+print(&quot;WAV / CTC / attention:&quot;, len(files), *matched)
+assert matched == [len(files), len(files)]
+PYTHON</code></pre></details>
+<p>체크포인트 SHA-256 <code>9f781e7d6e5894752ea815bcd63a1c1601f9cb32847da32078392b8bf3b6fb2f</code>. 전체 WAV 대조는 이 체크포인트와 같은 이름의 C++ export를 사용했고, 기본 CTest와 통합 러너의 모델 자산은 <code>android/app/src/main/assets/model_state</code>에서 읽었다.</p>
+</html>
