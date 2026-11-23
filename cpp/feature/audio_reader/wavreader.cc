@@ -152,6 +152,11 @@ void* wav_read_open(const char *filename) {
 				skip(wr->wav, sublength);
 			}
 			length -= sublength;
+			// RIFF aligns chunks to a word boundary; metadata can have an odd byte count.
+			if ((sublength & 1) && length > 0) {
+				fseek(wr->wav, 1, SEEK_CUR);
+				--length;
+			}
 		}
 		if (length > 0) {
 			// Bad chunk?

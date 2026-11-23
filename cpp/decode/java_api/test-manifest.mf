@@ -1,0 +1,3 @@
+Main-Class: com.chisnova.mercury.asr.ApiTest
+Class-Path: json-20250517.jar
+

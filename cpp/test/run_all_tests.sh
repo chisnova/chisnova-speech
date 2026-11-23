@@ -50,17 +50,22 @@ NC='\033[0m'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LAYER_DIR="${SCRIPT_DIR}/layer_test"
 MODULE_DIR="${SCRIPT_DIR}/module_test"
-API_DIR="${SCRIPT_DIR}/api_test"
-JAVA_DIR="${SCRIPT_DIR}/java_api_test"
+API_DIR="${SCRIPT_DIR}/../decode/api"
+JAVA_DIR="${SCRIPT_DIR}/../decode/java_api"
 MODEL_DIR="${SCRIPT_DIR}/../../model"
 MODEL_CHECKPOINT_DIR="${MODEL_DIR}/stream_conformer_transducer"
 
 # Keep caches copied from another checkout out of the build.
 BUILD_ROOT="${MERCURY_TEST_BUILD_ROOT:-${SCRIPT_DIR}/build}"
 BUILD_ROOT=$(realpath -m "$BUILD_ROOT")
+RUNTIME_BUILD_DIR="${SCRIPT_DIR}/../build"
+if [[ -n "${MERCURY_TEST_BUILD_ROOT:-}" ]]; then RUNTIME_BUILD_DIR="$BUILD_ROOT/runtime"; fi
+declare -A cleaned_build_dirs
 if [[ -n "${MERCURY_TEST_MODEL_DIR:-}" ]]; then
     MERCURY_TEST_MODEL_DIR=$(realpath -m "$MERCURY_TEST_MODEL_DIR")
     export MERCURY_TEST_MODEL_DIR
+elif [[ -f "$RUNTIME_BUILD_DIR/dist/model_state/model.json" ]]; then
+    export MERCURY_TEST_MODEL_DIR="$RUNTIME_BUILD_DIR/dist/model_state"
 elif [[ -f "${SCRIPT_DIR}/../../android/app/src/main/assets/model_state/model.json" && ! -d "$MODEL_CHECKPOINT_DIR" ]]; then
     export MERCURY_TEST_MODEL_DIR="${SCRIPT_DIR}/../../android/app/src/main/assets/model_state"
 fi
@@ -382,12 +387,15 @@ build_cmake() {
     local build_dir="$1"
     local source_dir="$2"
 
-    if [[ "$OPT_CLEAN" == "true" ]]; then
+    if [[ "$OPT_CLEAN" == "true" && -z "${cleaned_build_dirs[$build_dir]:-}" ]]; then
+        cleaned_build_dirs[$build_dir]=1
         echo -e "  ${YELLOW}>> Cleaning build directory...${NC}"
         rm -rf "$build_dir"
     fi
 
-    cmake -S "$source_dir" -B "$build_dir" -DCMAKE_BUILD_TYPE=Release || return 2
+    local options=()
+    if [[ "$build_dir" == "$RUNTIME_BUILD_DIR" ]]; then options+=(-DMERCURY_BUILD_TESTS=ON); fi
+    cmake -S "$source_dir" -B "$build_dir" -DCMAKE_BUILD_TYPE=Release "${options[@]}" || return 2
     cmake --build "$build_dir" --target "$3" --parallel "${CMAKE_BUILD_PARALLEL_LEVEL:-4}" || return 2
     echo -e "  ${GREEN}>> Build succeeded${NC}"
     return 0
@@ -526,9 +534,9 @@ run_api_test() {
     generate_model_data_if_needed "$API_DIR" "api_test" || return 1
 
     echo -e "  ${YELLOW}>> Phase: build${NC}"
-    build_cmake "${BUILD_ROOT}/api" "${API_DIR}" api_tester || return 2
+    build_cmake "$RUNTIME_BUILD_DIR" "$SCRIPT_DIR/.." api_tester || return 2
 
-    local test_binary="${BUILD_ROOT}/api/api_tester"
+    local test_binary="$RUNTIME_BUILD_DIR/api_tester"
     if [[ ! -x "$test_binary" ]]; then
         echo -e "  ${RED}>> Test binary not found: ${test_binary}${NC}"
         return 2
@@ -537,7 +545,7 @@ run_api_test() {
     echo -e "  ${YELLOW}>> Phase: test${NC}"
     local output
     local exit_code=0
-    output=$(cd "$API_DIR" && "$test_binary" 2>&1) || exit_code=$?
+    output=$(cd "$API_DIR" && "$test_binary" smoke 2>&1) || exit_code=$?
 
     local passed=0
     local failed=0
@@ -597,64 +605,23 @@ run_api_test() {
 # Suite: java_api_test
 # ==============================================================================
 run_java_api_test() {
-    # Check JAVA_HOME
-    if [[ -z "${JAVA_HOME:-}" ]]; then
-        echo -e "  ${RED}>> JAVA_HOME is not set. Skipping java_api_test.${NC}"
-        return 1
-    fi
-
-    if ! command -v java &>/dev/null; then
-        echo -e "  ${RED}>> java not found in PATH. Skipping java_api_test.${NC}"
-        return 1
-    fi
-
     # java_api_test loads actual model weights (not random) via saveModelAndInfer.py
     # Data flow: model/stream_conformer_transducer/*.pt → saveModelAndInfer.py → binary/*.pt → libasr_api.so → Java
     echo -e "  ${YELLOW}>> Phase: data generation${NC}"
     generate_model_data_if_needed "$JAVA_DIR" "java_api_test" || return 1
 
     echo -e "  ${YELLOW}>> Phase: build${NC}"
-    local build_dir="${BUILD_ROOT}/jni"
+    local build_dir="$RUNTIME_BUILD_DIR"
 
-    build_cmake "$build_dir" "$JAVA_DIR" asr_api || return 2
-
-    # Check that libasr_api.so was produced
-    if [[ ! -f "${build_dir}/libasr_api.so" ]]; then
-        echo -e "  ${RED}>> libasr_api.so not found in ${build_dir}${NC}"
-        return 2
-    fi
-
-    # asr_api.jar 는 git 미추적 빌드 산출물이다 — 항상 소스에서 다시 빌드해야
-    # ApiTest.java 수정이 실제로 실행에 반영된다 (구 jar 로 조용히 도는 것 방지)
-    echo -e "  ${YELLOW}>> Phase: jar build${NC}"
-    if ! (cd "$JAVA_DIR" && ./java_build.sh 2>&1); then
-        echo -e "  ${RED}>> java_build.sh failed${NC}"
-        return 2
-    fi
+    build_cmake "$build_dir" "$SCRIPT_DIR/.." java_api_test || return 2
 
     echo -e "  ${YELLOW}>> Phase: test${NC}"
-    local json_lib="${JAVA_DIR}/lib/json-20250517.jar"
-    local asr_jar="${JAVA_DIR}/asr_api.jar"
-    if [[ ! -f "$json_lib" ]]; then
-        echo -e "  ${RED}>> JAR not found: ${json_lib}${NC}"
-        return 2
-    fi
-    if [[ ! -f "$asr_jar" ]]; then
-        echo -e "  ${RED}>> JAR not found: ${asr_jar}${NC}"
-        return 2
-    fi
-    local cp="${build_dir}:${json_lib}:${asr_jar}"
-
-    # [2026-04-08] 실시간 출력으로 변경
-    # 기존: output=$(...) 로 전체 캡처 → 305개 테스트 동안 15-20분 출력 없음
-    # 변경: 임시 파일로 출력 리다이렉트 + tail -f로 실시간 파싱
     local tmpfile
     tmpfile=$(mktemp /tmp/mercury_java_test.XXXXXX)
 
     local exit_code=0
     local sample_count=5
-    (cd "$JAVA_DIR" && java -cp "$cp" -Djava.library.path="$build_dir" \
-        com.chisnova.mercury.asr.ApiTest "$sample_count") 2>&1 | tee "$tmpfile" | awk '
+    "$build_dir/java_api_test" "$sample_count" 2>&1 | tee "$tmpfile" | awk '
         /PRONOUNCE SCORE:/ {printf "    [PASS %d] score extracted\n", ++count; fflush(); next}
         /LABEL_COMPARE:|Exception|Error|SIGSEGV/ {print; fflush()}
     ' || exit_code=$?
@@ -800,6 +767,8 @@ main() {
         esac
     done
 
+    if [[ "$OPT_CLEAN" == "true" || "$OPT_CLEANUP_DATA" == "true" ]]; then RUNTIME_BUILD_DIR="$BUILD_ROOT/runtime"; fi
+
     if [[ "$RUN_ALL" == "true" ]]; then
         RUN_LAYER=true
         RUN_MODULE=true
@@ -872,7 +841,7 @@ main() {
         done
 
         echo -e "${YELLOW}>> Cleaning up build artifacts...${NC}"
-        for dir in "${BUILD_ROOT}/layer" "${BUILD_ROOT}/module" "${BUILD_ROOT}/api" "${BUILD_ROOT}/jni"; do
+        for dir in "${BUILD_ROOT}/layer" "${BUILD_ROOT}/module" "$RUNTIME_BUILD_DIR"; do
             if [[ -d "$dir" ]]; then
                 rm -rf "$dir"
                 echo -e "  ${DIM}>> Removed build: ${dir}${NC}"
