@@ -12,7 +12,7 @@ int main(int argc, char** argv) try {
     const Command commands[] = {
         {"smoke", smoke}, {"compare", compare}, {"audit", audit},
         {"endpoint", endpoint}, {"pronounce", pronounce}, {"score", score},
-        {"stability", stability},
+        {"stability", stability}, {"benchmark", benchmark},
     };
 
     for (const auto& cmd : commands) {
@@ -20,7 +20,7 @@ int main(int argc, char** argv) try {
     }
     if (argc == 3) return smoke(argc, argv);
     std::cerr << "Usage: api_tester MODEL_DIR WAV_LIST\n"
-              << "        api_tester [smoke|compare|audit|endpoint|pronounce|score|stability] [args...]\n";
+              << "        api_tester [smoke|compare|audit|endpoint|pronounce|score|stability|benchmark] [args...]\n";
     return argc == 2 && std::string_view(argv[1]) == "--help" ? 0 : 2;
 } catch (const std::exception& error) {
     std::cerr << "api_tester: " << error.what() << '\n';

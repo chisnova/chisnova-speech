@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 녹음 중인 연습 버튼의 아이콘 배경. iOS 는 같은 상황에서 DS.danger 로 채운다. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/ds_danger" />
+    <corners android:radius="10dp" />
+</shape>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_sentence_card"
+    android:padding="16dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="1dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <!-- English text + Score badge row -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/engText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/text_primary"
+            android:includeFontPadding="false"
+            android:linksClickable="true"
+            android:lineSpacingExtra="4dp"
+            android:paddingEnd="64dp" />
+
+        <!-- Score badge -->
+        <TextView
+            android:id="@+id/itemScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:text="점수"
+            android:textColor="@color/ds_primary"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:background="@drawable/bg_score_badge"
+            android:clickable="true"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp" />
+    </FrameLayout>
+
+    <!-- Korean translation -->
+    <TextView
+        android:id="@+id/korText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:background="@drawable/bg_kor_text"
+        android:padding="12dp"
+        android:lineSpacingExtra="3dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Practice button -->
+        <LinearLayout
+            android:id="@+id/itemBtnPractice"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingEnd="20dp">
+
+            <ImageView
+                android:id="@+id/itemBtnPracticeIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_mic_24"
+                android:background="@drawable/bg_mic_button_large"
+                android:padding="5dp"
+                app:tint="@color/ds_primary" />
+
+            <TextView
+                android:id="@+id/itemBtnPracticeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="발음연습"
+                android:textColor="@color/ds_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <!-- Play example button -->
+        <LinearLayout
+            android:id="@+id/itemBtnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingEnd="20dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_play_24"
+                android:background="@drawable/bg_mic_button_large"
+                android:padding="5dp"
+                app:tint="@color/ds_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="예시 듣기"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <!-- Play my voice button -->
+        <LinearLayout
+            android:id="@+id/itemBtnPlayMyVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_play_circle_24"
+                android:background="@drawable/bg_mic_button_large"
+                android:padding="5dp"
+                app:tint="@color/ds_accent_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 녹음"
+                android:textColor="@color/ds_accent_green"
+                android:textSize="13sp"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Recognition status -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+
+        <ProgressBar
+            android:id="@+id/itemProgress"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/itemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:layout_marginStart="6dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- ASR status (hidden, for engine updates) -->
+    <TextView
+        android:id="@+id/itemHintText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+</LinearLayout>

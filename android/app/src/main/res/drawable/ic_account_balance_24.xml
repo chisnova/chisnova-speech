@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material Symbols: account_balance (Filled) - 정부/정치 카테고리 (Government) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:fillColor="#000000"
+      android:pathData="M200,680v-280h80v280H200ZM440,680v-280h80v280H440ZM80,800v-80h800v80H80ZM680,680v-280h80v280H680ZM80,320v-60l400,-220 400,220v60H80Z"/>
+</vector>

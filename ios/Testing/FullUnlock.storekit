@@ -1,0 +1,36 @@
+{
+  "identifier": "8B1D493C-F5BA-4290-9ABB-A02F8B8FD603",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "1000",
+      "familyShareable": false,
+      "internalID": "1",
+      "localizations": [
+        {
+          "description": "테스트용 전체 이용권. 실제 판매 가격이 아닙니다.",
+          "displayName": "전체 이용권 (로컬 테스트)",
+          "locale": "ko_KR"
+        },
+        {
+          "description": "Local testing only",
+          "displayName": "Full Unlock (Local Test)",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.chisnova.mercury.full_unlock",
+      "referenceName": "Full Unlock — local test only",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_failTransactionsEnabled": false,
+    "_locale": "ko_KR",
+    "_storefront": "KOR"
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 namespace api_tests {
+int benchmark(int argc, char** argv);
 int smoke(int argc, char** argv);
 int compare(int argc, char** argv);
 int audit(int argc, char** argv);

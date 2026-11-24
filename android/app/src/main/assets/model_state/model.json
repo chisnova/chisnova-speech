@@ -1,0 +1,5818 @@
+{
+	"model_path": {
+		"format_version": 1,
+		"dtype": "float32",
+		"model_type": "conformer_stream",
+		"vocab_name": "mercury.vocab",
+		"vocab_model": "mercury.model",
+		"vocab_size": 1024,
+		"phone_size": 47,
+		"phone_name": "phone.txt",
+		"dict_name": "full.dict",
+		"phone_weight": 0.5,
+		"function_word_list": "function_words.txt",
+		"function_word_floor": 90.0,
+		"proper_noun_list": "proper_nouns.txt",
+		"proper_noun_floor": 90.0,
+		"ungraded_word_list": "ungraded_words.txt",
+		"recognition_weight": 0.5,
+		"model": {
+			"stream_encoder": {
+				"num_layer": 17,
+				"num_head": 4,
+				"dim_model": 256,
+				"feat_norm": {
+					"weight": "conformer_stream_stream_encoder_feat_norm.weight.pt",
+					"bias": "conformer_stream_stream_encoder_feat_norm.bias.pt",
+					"shape": [
+						1,
+						80
+					]
+				},
+				"layer_norm1": {
+					"weight": "conformer_stream_stream_encoder_layer_norm1.weight.pt",
+					"bias": "conformer_stream_stream_encoder_layer_norm1.bias.pt",
+					"shape": [
+						1,
+						256
+					]
+				},
+				"feat_convsubsample": {
+					"conv1": {
+						"in_channels": 1,
+						"out_channels": 64,
+						"kernel_size": 3,
+						"stride": 2,
+						"padding": 0,
+						"dilation": 1,
+						"groups": 1,
+						"bias": 1,
+						"weight_path": "conformer_stream_stream_encoder_feat_convsubsample_conv1_weight.pt",
+						"bias_path": "conformer_stream_stream_encoder_feat_convsubsample_conv1_bias.pt",
+						"shape": [
+							64,
+							9
+						]
+					},
+					"conv2": {
+						"in_channels": 64,
+						"out_channels": 64,
+						"kernel_size": 3,
+						"stride": 2,
+						"padding": 0,
+						"dilation": 1,
+						"groups": 64,
+						"bias": 1,
+						"weight_path": "conformer_stream_stream_encoder_feat_convsubsample_conv2_weight.pt",
+						"bias_path": "conformer_stream_stream_encoder_feat_convsubsample_conv2_bias.pt",
+						"shape": [
+							64,
+							9
+						]
+					}
+				},
+				"feat_linear": {
+					"weight": "conformer_stream_stream_encoder_feat_linear.weight.pt",
+					"bias": "conformer_stream_stream_encoder_feat_linear.bias.pt",
+					"shape": [
+						1216,
+						256
+					]
+				},
+				"feat_dropout": {},
+				"layers": {
+					"0": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_0_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_0_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_0_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_0_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_0_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_0_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_0_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_0_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_0_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_0_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_0_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_0_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_0_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_0_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_0_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_0_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_0_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_0_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_0_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_0_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_0_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_0_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_0_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"1": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_1_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_1_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_1_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_1_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_1_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_1_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_1_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_1_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_1_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_1_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_1_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_1_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_1_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_1_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_1_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_1_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_1_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_1_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_1_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_1_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_1_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_1_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_1_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"2": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_2_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_2_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_2_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_2_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_2_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_2_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_2_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_2_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_2_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_2_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_2_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_2_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_2_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_2_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_2_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_2_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_2_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_2_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_2_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_2_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_2_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_2_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_2_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"3": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_3_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_3_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_3_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_3_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_3_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_3_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_3_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_3_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_3_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_3_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_3_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_3_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_3_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_3_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_3_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_3_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_3_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_3_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_3_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_3_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_3_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_3_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_3_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"4": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_4_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_4_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_4_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_4_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_4_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_4_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_4_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_4_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_4_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_4_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_4_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_4_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_4_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_4_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_4_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_4_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_4_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_4_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_4_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_4_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_4_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_4_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_4_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"5": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_5_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_5_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_5_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_5_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_5_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_5_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_5_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_5_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_5_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_5_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_5_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_5_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_5_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_5_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_5_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_5_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_5_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_5_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_5_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_5_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_5_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_5_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_5_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"6": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_6_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_6_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_6_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_6_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_6_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_6_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_6_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_6_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_6_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_6_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_6_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_6_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_6_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_6_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_6_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_6_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_6_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_6_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_6_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_6_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_6_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_6_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_6_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"7": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_7_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_7_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_7_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_7_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_7_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_7_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_7_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_7_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_7_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_7_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_7_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_7_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_7_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_7_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_7_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_7_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_7_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_7_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_7_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_7_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_7_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_7_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_7_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"8": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_8_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_8_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_8_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_8_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_8_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_8_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_8_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_8_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_8_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_8_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_8_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_8_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_8_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_8_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_8_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_8_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_8_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_8_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_8_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_8_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_8_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_8_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_8_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"9": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_9_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_9_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_9_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_9_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_9_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_9_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_9_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_9_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_9_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_9_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_9_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_9_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_9_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_9_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_9_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_9_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_9_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_9_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_9_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_9_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_9_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_9_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_9_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"10": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_10_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_10_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_10_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_10_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_10_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_10_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_10_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_10_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_10_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_10_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_10_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_10_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_10_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_10_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_10_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_10_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_10_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_10_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_10_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_10_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_10_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_10_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_10_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"11": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_11_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_11_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_11_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_11_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_11_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_11_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_11_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_11_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_11_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_11_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_11_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_11_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_11_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_11_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_11_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_11_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_11_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_11_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_11_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_11_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_11_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_11_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_11_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"12": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_12_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_12_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_12_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_12_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_12_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_12_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_12_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_12_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_12_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_12_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_12_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_12_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_12_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_12_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_12_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_12_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_12_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_12_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_12_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_12_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_12_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_12_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_12_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"13": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_13_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_13_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_13_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_13_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_13_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_13_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_13_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_13_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_13_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_13_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_13_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_13_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_13_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_13_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_13_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_13_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_13_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_13_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_13_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_13_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_13_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_13_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_13_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"14": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_14_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_14_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_14_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_14_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_14_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_14_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_14_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_14_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_14_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_14_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_14_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_14_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_14_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_14_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_14_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_14_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_14_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_14_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_14_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_14_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_14_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_14_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_14_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"15": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_15_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_15_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_15_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_15_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_15_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_15_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_15_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_15_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_15_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_15_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_15_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_15_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_15_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_15_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_15_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_15_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_15_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_15_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_15_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_15_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_15_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_15_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_15_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"16": {
+						"layer_norm1": {
+							"weight": "conformer_stream_stream_encoder_layers_16_layer_norm1.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_16_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_stream_encoder_layers_16_layer_norm2.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_16_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"ksize": 15,
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_16_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_16_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_16_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 15,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_stream_encoder_layers_16_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_16_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									15
+								]
+							},
+							"layer_norm2": {
+								"weight": "conformer_stream_stream_encoder_layers_16_conv_module_layer_norm2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_conv_module_layer_norm2.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_stream_encoder_layers_16_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_stream_encoder_layers_16_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_stream_encoder_layers_16_layer_norm3.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_16_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_16_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_stream_encoder_layers_16_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_16_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_stream_encoder_layers_16_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_stream_encoder_layers_16_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_stream_encoder_layers_16_layer_norm4.weight.pt",
+							"bias": "conformer_stream_stream_encoder_layers_16_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_stream_encoder_layers_16_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_stream_encoder_layers_16_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					}
+				},
+				"rotary": {}
+			},
+			"second_encoder": {
+				"num_layer": 8,
+				"num_head": 4,
+				"dim_model": 256,
+				"pos_enc": {
+					"encoding": "conformer_stream_second_encoder_pos_enc.encoding.pt",
+					"shape": [
+						1000,
+						256
+					]
+				},
+				"layers": {
+					"0": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_0_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_0_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_0_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_0_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_0_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_0_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_0_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_0_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_0_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_0_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_0_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_0_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_0_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_0_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_0_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_0_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_0_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_0_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_0_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_0_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_0_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_0_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_0_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_0_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_0_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_0_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_0_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"1": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_1_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_1_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_1_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_1_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_1_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_1_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_1_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_1_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_1_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_1_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_1_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_1_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_1_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_1_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_1_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_1_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_1_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_1_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_1_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_1_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_1_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_1_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_1_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_1_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_1_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_1_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_1_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"2": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_2_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_2_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_2_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_2_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_2_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_2_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_2_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_2_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_2_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_2_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_2_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_2_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_2_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_2_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_2_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_2_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_2_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_2_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_2_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_2_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_2_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_2_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_2_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_2_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_2_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_2_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_2_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"3": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_3_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_3_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_3_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_3_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_3_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_3_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_3_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_3_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_3_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_3_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_3_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_3_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_3_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_3_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_3_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_3_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_3_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_3_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_3_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_3_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_3_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_3_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_3_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_3_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_3_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_3_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_3_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"4": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_4_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_4_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_4_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_4_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_4_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_4_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_4_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_4_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_4_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_4_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_4_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_4_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_4_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_4_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_4_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_4_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_4_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_4_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_4_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_4_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_4_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_4_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_4_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_4_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_4_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_4_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_4_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"5": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_5_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_5_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_5_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_5_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_5_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_5_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_5_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_5_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_5_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_5_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_5_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_5_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_5_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_5_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_5_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_5_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_5_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_5_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_5_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_5_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_5_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_5_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_5_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_5_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_5_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_5_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_5_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"6": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_6_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_6_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_6_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_6_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_6_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_6_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_6_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_6_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_6_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_6_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_6_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_6_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_6_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_6_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_6_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_6_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_6_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_6_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_6_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_6_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_6_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_6_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_6_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_6_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_6_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_6_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_6_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					},
+					"7": {
+						"layer_norm1": {
+							"weight": "conformer_stream_second_encoder_layers_7_layer_norm1.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_7_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn1": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn1_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn1_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn1_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn1_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn1_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn1_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						},
+						"layer_norm2": {
+							"weight": "conformer_stream_second_encoder_layers_7_layer_norm2.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_7_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_7_multihead_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_multihead_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"attention": {
+								"n_head": 4,
+								"d_model": 256,
+								"qkv_proj": {
+									"weight": "conformer_stream_second_encoder_layers_7_multihead_attention_qkv_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_7_multihead_attention_qkv_proj.bias.pt",
+									"shape": [
+										256,
+										768
+									]
+								},
+								"pos_proj": {
+									"weight": "conformer_stream_second_encoder_layers_7_multihead_attention_pos_proj.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_7_multihead_attention_pos_proj.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								},
+								"linear": {
+									"weight": "conformer_stream_second_encoder_layers_7_multihead_attention_linear.weight.pt",
+									"bias": "conformer_stream_second_encoder_layers_7_multihead_attention_linear.bias.pt",
+									"shape": [
+										256,
+										256
+									]
+								}
+							},
+							"dropout": {}
+						},
+						"layer_norm3": {
+							"weight": "conformer_stream_second_encoder_layers_7_layer_norm3.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_7_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"conv_module": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_7_conv_module_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_conv_module_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"pointwise1": {
+								"in_channels": 256,
+								"out_channels": 512,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_7_conv_module_pointwise1_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_7_conv_module_pointwise1_bias.pt",
+								"shape": [
+									512,
+									256
+								]
+							},
+							"glu": {},
+							"depthwise": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 31,
+								"stride": 1,
+								"padding": 15,
+								"dilation": 1,
+								"groups": 256,
+								"bias": 0,
+								"weight_path": "conformer_stream_second_encoder_layers_7_conv_module_depthwise_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_7_conv_module_depthwise_bias.pt",
+								"shape": [
+									256,
+									31
+								]
+							},
+							"batch_norm": {
+								"mean": "conformer_stream_second_encoder_layers_7_conv_module_batch_norm_mean.pt",
+								"std": "conformer_stream_second_encoder_layers_7_conv_module_batch_norm_std.pt",
+								"weight": "conformer_stream_second_encoder_layers_7_conv_module_batch_norm_weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_conv_module_batch_norm_bias.pt",
+								"shape": [
+									256,
+									1
+								]
+							},
+							"swish": {},
+							"pointwise2": {
+								"in_channels": 256,
+								"out_channels": 256,
+								"kernel_size": 1,
+								"stride": 1,
+								"padding": 0,
+								"dilation": 1,
+								"groups": 1,
+								"bias": 1,
+								"weight_path": "conformer_stream_second_encoder_layers_7_conv_module_pointwise2_weight.pt",
+								"bias_path": "conformer_stream_second_encoder_layers_7_conv_module_pointwise2_bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							},
+							"dropout": {}
+						},
+						"layer_norm4": {
+							"weight": "conformer_stream_second_encoder_layers_7_layer_norm4.weight.pt",
+							"bias": "conformer_stream_second_encoder_layers_7_layer_norm4.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn2": {
+							"layer_norm": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn2_layer_norm.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn2_layer_norm.bias.pt",
+								"shape": [
+									1,
+									256
+								]
+							},
+							"linear1": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn2_linear1.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn2_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"swish_act": {},
+							"dropout1": {},
+							"linear2": {
+								"weight": "conformer_stream_second_encoder_layers_7_ffn2_linear2.weight.pt",
+								"bias": "conformer_stream_second_encoder_layers_7_ffn2_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout2": {}
+						}
+					}
+				},
+				"layer_norm1": {
+					"weight": "conformer_stream_second_encoder_layer_norm1.weight.pt",
+					"bias": "conformer_stream_second_encoder_layer_norm1.bias.pt",
+					"shape": [
+						1,
+						256
+					]
+				},
+				"layer_norm2": {
+					"weight": "conformer_stream_second_encoder_layer_norm2.weight.pt",
+					"bias": "conformer_stream_second_encoder_layer_norm2.bias.pt",
+					"shape": [
+						1,
+						256
+					]
+				}
+			},
+			"phn_decoder": {
+				"num_layer": 4,
+				"num_head": 4,
+				"dim_model": 256,
+				"ffn_hidden": 1024,
+				"tin_emb": {
+					"embedding": "conformer_stream_phn_decoder_tin_emb.weight.pt",
+					"shape": [
+						47,
+						256
+					]
+				},
+				"pos_enc": {
+					"encoding": "conformer_stream_phn_decoder_pos_enc.encoding.pt",
+					"shape": [
+						1500,
+						256
+					]
+				},
+				"layers": {
+					"0": {
+						"layer_norm1": {
+							"weight": "conformer_stream_phn_decoder_layers_0_layer_norm1.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_0_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_0_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_0_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_phn_decoder_layers_0_layer_norm2.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_0_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_0_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_0_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_phn_decoder_layers_0_layer_norm3.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_0_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_phn_decoder_layers_0_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_phn_decoder_layers_0_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_0_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"1": {
+						"layer_norm1": {
+							"weight": "conformer_stream_phn_decoder_layers_1_layer_norm1.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_1_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_1_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_1_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_phn_decoder_layers_1_layer_norm2.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_1_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_1_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_1_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_phn_decoder_layers_1_layer_norm3.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_1_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_phn_decoder_layers_1_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_phn_decoder_layers_1_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_1_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"2": {
+						"layer_norm1": {
+							"weight": "conformer_stream_phn_decoder_layers_2_layer_norm1.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_2_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_2_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_2_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_phn_decoder_layers_2_layer_norm2.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_2_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_2_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_2_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_phn_decoder_layers_2_layer_norm3.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_2_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_phn_decoder_layers_2_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_phn_decoder_layers_2_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_2_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"3": {
+						"layer_norm1": {
+							"weight": "conformer_stream_phn_decoder_layers_3_layer_norm1.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_3_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_3_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_3_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_phn_decoder_layers_3_layer_norm2.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_3_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_phn_decoder_layers_3_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_phn_decoder_layers_3_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_phn_decoder_layers_3_layer_norm3.weight.pt",
+							"bias": "conformer_stream_phn_decoder_layers_3_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_phn_decoder_layers_3_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_phn_decoder_layers_3_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_phn_decoder_layers_3_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					}
+				},
+				"layer_norm": {
+					"weight": "conformer_stream_phn_decoder_layer_norm.weight.pt",
+					"bias": "conformer_stream_phn_decoder_layer_norm.bias.pt",
+					"shape": [
+						1,
+						256
+					]
+				},
+				"tout_emb": {
+					"weight": "conformer_stream_phn_decoder_tout_emb.weight.pt",
+					"bias": "conformer_stream_phn_decoder_tout_emb.bias.pt",
+					"shape": [
+						256,
+						47
+					]
+				}
+			},
+			"wrd_decoder": {
+				"num_layer": 4,
+				"num_head": 4,
+				"dim_model": 256,
+				"ffn_hidden": 1024,
+				"tin_emb": {
+					"embedding": "conformer_stream_wrd_decoder_tin_emb.weight.pt",
+					"shape": [
+						1024,
+						256
+					]
+				},
+				"pos_enc": {
+					"encoding": "conformer_stream_wrd_decoder_pos_enc.encoding.pt",
+					"shape": [
+						1500,
+						256
+					]
+				},
+				"layers": {
+					"0": {
+						"layer_norm1": {
+							"weight": "conformer_stream_wrd_decoder_layers_0_layer_norm1.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_0_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_wrd_decoder_layers_0_layer_norm2.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_0_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_wrd_decoder_layers_0_layer_norm3.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_0_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_wrd_decoder_layers_0_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_0_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"1": {
+						"layer_norm1": {
+							"weight": "conformer_stream_wrd_decoder_layers_1_layer_norm1.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_1_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_wrd_decoder_layers_1_layer_norm2.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_1_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_wrd_decoder_layers_1_layer_norm3.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_1_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_wrd_decoder_layers_1_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_1_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"2": {
+						"layer_norm1": {
+							"weight": "conformer_stream_wrd_decoder_layers_2_layer_norm1.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_2_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_wrd_decoder_layers_2_layer_norm2.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_2_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_wrd_decoder_layers_2_layer_norm3.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_2_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_wrd_decoder_layers_2_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_2_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					},
+					"3": {
+						"layer_norm1": {
+							"weight": "conformer_stream_wrd_decoder_layers_3_layer_norm1.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_3_layer_norm1.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead1": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_multihead1_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_multihead1_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_multihead1_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_multihead1_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout1": {},
+						"layer_norm2": {
+							"weight": "conformer_stream_wrd_decoder_layers_3_layer_norm2.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_3_layer_norm2.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"multihead2": {
+							"n_head": 4,
+							"d_model": 256,
+							"qkv_proj": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_multihead2_qkv_proj.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_multihead2_qkv_proj.bias.pt",
+								"shape": [
+									256,
+									768
+								]
+							},
+							"linear": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_multihead2_linear.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_multihead2_linear.bias.pt",
+								"shape": [
+									256,
+									256
+								]
+							}
+						},
+						"dropout2": {},
+						"layer_norm3": {
+							"weight": "conformer_stream_wrd_decoder_layers_3_layer_norm3.weight.pt",
+							"bias": "conformer_stream_wrd_decoder_layers_3_layer_norm3.bias.pt",
+							"shape": [
+								1,
+								256
+							]
+						},
+						"ffn": {
+							"linear1": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_ffn_linear1.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_ffn_linear1.bias.pt",
+								"shape": [
+									256,
+									1024
+								]
+							},
+							"linear2": {
+								"weight": "conformer_stream_wrd_decoder_layers_3_ffn_linear2.weight.pt",
+								"bias": "conformer_stream_wrd_decoder_layers_3_ffn_linear2.bias.pt",
+								"shape": [
+									1024,
+									256
+								]
+							},
+							"dropout": {},
+							"gelu": {}
+						}
+					}
+				},
+				"layer_norm": {
+					"weight": "conformer_stream_wrd_decoder_layer_norm.weight.pt",
+					"bias": "conformer_stream_wrd_decoder_layer_norm.bias.pt",
+					"shape": [
+						1,
+						256
+					]
+				},
+				"tout_emb": {
+					"weight": "conformer_stream_wrd_decoder_tout_emb.weight.pt",
+					"bias": "conformer_stream_wrd_decoder_tout_emb.bias.pt",
+					"shape": [
+						256,
+						1024
+					]
+				}
+			},
+			"ctc_linear1": {
+				"weight": "conformer_stream_ctc_linear1.weight.pt",
+				"bias": "conformer_stream_ctc_linear1.bias.pt",
+				"shape": [
+					256,
+					1024
+				]
+			},
+			"ctc_linear2": {
+				"weight": "conformer_stream_ctc_linear2.weight.pt",
+				"bias": "conformer_stream_ctc_linear2.bias.pt",
+				"shape": [
+					256,
+					1024
+				]
+			},
+			"ctc_time_reduction": 2,
+			"stream_left_context": 512,
+			"vocab_size": 1024,
+			"blank_id": 1,
+			"sos_id": 2,
+			"eos_id": 3
+		}
+	}
+}

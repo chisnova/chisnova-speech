@@ -1,0 +1,96 @@
+# ===== Binary / Shared Libraries =====
+*.o
+*.d
+*.so
+*.a
+*.dylib
+*.dll
+*.lib
+*.lo
+*.la
+
+# ===== Python =====
+*.pyc
+*.pyo
+__pycache__/
+.pytest_cache/
+
+# ===== ML Model Files =====
+*.pt
+*.pth
+*.onnx
+*.tflite
+
+# ===== CMake Build Artifacts =====
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+cmake-build*/
+*_build/
+build_*/
+
+# ===== Build Directories =====
+build/
+linux_build/
+
+# ===== IDE / Editor / OS =====
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ===== Logs / runtime state =====
+nohup.out
+*.pid
+load_error.log
+
+# ===== Deployment artifacts (GitHub Release 로 배포 — git 에는 두지 않는다) =====
+cpp/export/model_state/
+cpp/export/model_state_mercury5_backup/
+
+# ===== Test generated data =====
+cpp/test/*/python/binary/
+cpp/test/*/python/binary
+cpp/decode/*/python/binary
+cpp/decode/api/compare_out/
+cpp/decode/api/wav_local.list
+cpp/decode/java_api/classes/
+cpp/decode/java_api/asr_api.jar
+cpp/decode/java_api/manifest.txt
+cpp/decode/java_api/python/binary_mercury5_backup/
+cpp/decode/java_api/conan.jsonl.mercury5.bak
+
+# ===== Model runs =====
+# 실행 기록(config, README, 로그, json)은 추적하고 체크포인트(*.pt, 위 규칙)는 제외한다.
+# C++ export 텐서는 GitHub Release에서 배포한다.
+model/*_cpp_export/
+model/data/generation/artifacts/
+# sample 로 만든 레코드 — data/make_lmdb.sh 로 다시 만든다
+model/data/sample/database/
+# sample 로 학습해 본 결과 — 설정(config.json)만 추적한다
+model/sample_model/*
+!model/sample_model/config.json
+
+# ===== Local test data lists =====
+model/test_tot.lab
+model/test_tot.wlist
+model/test_lab.txt
+model/test_wav.txt
+
+# ===== Local scratch / agent state =====
+android/scripts/pronounce_ids_backup/
+android/.claude/agent-memory/
+
+# 콘텐츠 원본은 앱 밖에 하나만 둔다. 앱 안의 것은 sync 로 만든 사본이다.
+android/app/src/main/assets/contents/
+ios/Resources/contents/
+
+# Release 모델을 앱으로 복사할 때 앱별 설정만 Git에 보관한다.
+/arifact/
+/android/app/src/main/assets/model_state/*
+!/android/app/src/main/assets/model_state/model.json
+!/android/app/src/main/assets/model_state/MODEL_SOURCE.json
+/android/tmp/
+**/.claude/

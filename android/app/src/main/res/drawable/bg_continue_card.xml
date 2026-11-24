@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 이어서 학습하기 카드. iOS 홈의 파란 그라데이션 카드와 같은 결. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="18dp" />
+    <gradient android:angle="315" android:startColor="#2563EB" android:endColor="#1E40AF" android:type="linear" />
+</shape>

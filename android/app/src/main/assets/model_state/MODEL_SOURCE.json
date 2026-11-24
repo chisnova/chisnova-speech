@@ -1,0 +1,6 @@
+{
+  "source_export": "/home/chisnova/Desktop/mercury/model/stream_conformer_mercury3_adapt_1p5s_cpp_export",
+  "run": "model/stream_conformer_mercury3_adapt_1p5s",
+  "checkpoint_sha256": "d808b235afbdc963d880671d3019eb350b85cffb4d2e0f37d7c1f6368530374b",
+  "note": "앱 model.json의 phone_weight 0.5 등 앱 설정은 유지하고 텐서만 교체"
+}
