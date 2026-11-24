@@ -25,15 +25,16 @@ build/
 *.tflite
 /export/model_state*/
 /test/*/python/binary
-/test/java_api_test/python/binary_mercury5_backup/
-/test/api_test/compare_out/
-/test/api_test/wav_local.list
-/test/java_api_test/classes/
-/test/java_api_test/asr_api.jar
-/test/java_api_test/manifest.txt
-/test/java_api_test/conan.jsonl.mercury5.bak
+/decode/*/python/binary
+/decode/java_api/python/binary_mercury5_backup/
+/decode/api/compare_out/
+/decode/api/wav_local.list
+/decode/java_api/classes/
+/decode/java_api/asr_api.jar
+/decode/java_api/manifest.txt
+/decode/java_api/conan.jsonl.mercury5.bak
 /score/score.log
-/test/java_api_test/python/py.log
+/decode/java_api/python/py.log
 
 # Local tools and caches
 /.claude/

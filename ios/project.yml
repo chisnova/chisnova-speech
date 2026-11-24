@@ -1,0 +1,126 @@
+# XcodeGen 프로젝트 정의.
+#
+#   cmake --build ../cpp/build --target export_ios
+#   ./Engine/copy.sh                 # Engine/lib/MercuryAsr.xcframework 생성
+#   xcodegen generate                # MercuryApp.xcodeproj 생성
+#   open MercuryApp.xcodeproj
+#
+# .xcodeproj 를 커밋하지 않고 이 파일만 관리하면 pbxproj 머지 충돌이 없다.
+name: MercuryApp
+options:
+  bundleIdPrefix: com.chisnova
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    # 엔진은 C++17 로 빌드된다 — Obj-C++ 브리지도 같은 표준을 써야 한다
+    CLANG_CXX_LANGUAGE_STANDARD: "c++17"
+    CLANG_CXX_LIBRARY: "libc++"
+    SWIFT_VERSION: "5.0"
+    # 엔진 라이브러리는 arm64 로만 만든다(export_ios 타깃).
+    # Apple Silicon 에서는 시뮬레이터도 arm64 라 x86_64 슬라이스는 필요 없다 —
+    # 빼지 않으면 x86_64 로도 링크하려다 "found architecture arm64" 로 실패한다.
+    EXCLUDED_ARCHS[sdk=iphonesimulator*]: "x86_64"
+
+targets:
+  MercuryApp:
+    type: application
+    platform: iOS
+    sources:
+      - path: MercuryApp
+      - path: ../legal
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.chisnova.mercury.ios
+        # 실기기 설치용 자동 서명. 팀 ID 는 Xcode 에 로그인한 계정의 것.
+        DEVELOPMENT_TEAM: "3T23WT8Y3Z"
+        CODE_SIGN_STYLE: Automatic
+        INFOPLIST_FILE: MercuryApp/Info.plist
+        SWIFT_OBJC_BRIDGING_HEADER: MercuryApp/Bridge/Mercury-Bridging-Header.h
+        # Eigen 은 헤더 전용이라 컴파일 시간이 길다. 디버그에서도 최적화를 조금 켠다.
+        GCC_OPTIMIZATION_LEVEL: "1"
+        # 앱 아이콘 — Assets.xcassets/AppIcon.appiconset
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    postCompileScripts:
+      - name: 모델·콘텐츠 번들에 복사
+        # 실기기는 호스트 경로를 읽을 수 없어 자산을 번들에 실어야 한다.
+        # Resources/ 안은 안드로이드 assets 로의 심링크라 -L 로 실제 내용을 푼다.
+        # 서명 전(postCompile)에 넣어야 리소스가 서명에 포함된다.
+        script: |
+          # 번들 루트에 임의 디렉터리를 두면 codesign 이 "unsealed contents" 로 거부한다.
+          # Assets/ 하나로 모아서 넣는다.
+          DEST="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/Assets"
+          mkdir -p "$DEST"
+          for asset in model_state contents diag; do
+            if [ -e "$SRCROOT/Resources/$asset" ]; then
+              rsync -aL --delete "$SRCROOT/Resources/$asset" "$DEST/"
+            fi
+          done
+        basedOnDependencyAnalysis: false
+
+    dependencies:
+      - framework: Engine/lib/MercuryAsr.xcframework
+        embed: true
+        codeSign: true
+      - sdk: AVFoundation.framework
+      - sdk: Foundation.framework
+
+  # 메모리·크래시 스트레스 시험. 안드로이드 androidTest 의 AsrMemoryStressTest 와 짝이다.
+  #
+  #   xcodebuild test -scheme MercuryApp -destination 'platform=iOS,name=<기기>'
+  #
+  # 앱을 호스트로 삼는다 — 모델(약 200MB)이 앱 번들 Assets/model_state 에 있어서,
+  # 호스트 없이 돌리면 엔진을 만들 수 없다. 시뮬레이터에서도 돌지만 메모리 수치는
+  # 호스트 자원을 쓰므로 기기에서 재야 의미가 있다.
+  MercuryAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MercuryAppTests
+      - path: Testing/FullUnlock.storekit
+        buildPhase: resources
+    dependencies:
+      - target: MercuryApp
+      - framework: Engine/lib/MercuryAsr.xcframework
+        embed: false
+    settings:
+      base:
+        # 테스트에서도 Obj-C++ 브리지(MercuryAsr)를 직접 부른다
+        SWIFT_OBJC_BRIDGING_HEADER: MercuryApp/Bridge/Mercury-Bridging-Header.h
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/MercuryApp.app/MercuryApp"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        # 실기기에서 돌려야 메모리 수치가 의미 있다 — 앱과 같은 팀으로 서명한다
+        PRODUCT_BUNDLE_IDENTIFIER: com.chisnova.mercury.ios.tests
+        DEVELOPMENT_TEAM: "3T23WT8Y3Z"
+        CODE_SIGN_STYLE: Automatic
+        # 테스트 번들은 Info.plist 를 따로 두지 않고 Xcode 가 만들게 한다
+        GENERATE_INFOPLIST_FILE: "YES"
+
+# Local StoreKit only in this explicitly selected scheme. Normal device builds use App Store.
+schemes:
+  MercuryApp:
+    build:
+      targets:
+        MercuryApp: all
+    test:
+      targets:
+        - MercuryAppTests
+  MercuryApp-BillingLocal:
+    build:
+      targets:
+        MercuryApp: all
+    run:
+      config: Debug
+      storeKitConfiguration: Testing/FullUnlock.storekit
+    test:
+      config: Debug
+      targets:
+        - name: MercuryAppTests
+          parallelizable: false
+          selectedTests:
+            - PurchaseTests
+            - LearningStatsTests

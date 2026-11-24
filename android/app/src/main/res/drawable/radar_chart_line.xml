@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="280dp"
+    android:viewportWidth="280"
+    android:viewportHeight="280">
+    
+    <!-- 레이더 차트 데이터 영역 (보라색 채우기) -->
+    <path
+        android:pathData="M140,20 L243,87 L243,193 L140,240 L37,193 L37,87 Z"
+        android:fillColor="#8B5CF6"
+        android:fillAlpha="0.3" />
+    
+    <!-- 레이더 차트 데이터 라인 (보라색 선) -->
+    <path
+        android:pathData="M140,20 L243,87 L243,193 L140,240 L37,193 L37,87 Z"
+        android:strokeColor="#8B5CF6"
+        android:strokeWidth="3"
+        android:fillColor="@android:color/transparent" />
+    
+    <!-- 데이터 포인트들 -->
+    <path
+        android:pathData="M140,20 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+    <path
+        android:pathData="M243,87 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+    <path
+        android:pathData="M243,193 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+    <path
+        android:pathData="M140,240 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+    <path
+        android:pathData="M37,193 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+    <path
+        android:pathData="M37,87 m-4,0 a4,4 0,1 1,8 0 a4,4 0,1 1,-8 0"
+        android:fillColor="#8B5CF6" />
+</vector>

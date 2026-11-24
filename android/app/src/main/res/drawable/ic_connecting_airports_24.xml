@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material Symbols: connecting_airports (Filled) - 외교 (Diplomacy) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:fillColor="#000000"
+      android:pathData="M120,600v-80l200,-120V280L20,400V320l300,-180V40q0,-17 11.5,-28.5T360,0q17,0 28.5,11.5T400,40v100l300,180v80L400,280v120l200,120v80L360,520 120,600ZM840,960V860L640,740v-80l200,120V660L640,540V460l300,180v100q0,17 -11.5,28.5T900,780H660L840,960Z"/>
+</vector>

@@ -57,10 +57,10 @@ ASR 오류도 총점에 영향을 줄 수 있으므로, 인식이 부정확한 �
 저장소 루트에서 실행한다. C++ 회귀 테스트는 tokenizer·사전 자산만 사용하며 음향 모델 추론을 실행하지 않는다.
 
 ```bash
-cmake -S cpp/test/api_test -B cpp/test/api_test/build -DCMAKE_BUILD_TYPE=Release
-cmake --build cpp/test/api_test/build --target recognition_score_test -j 4
-ctest --test-dir cpp/test/api_test/build -R recognition_score_test --output-on-failure
+cmake -S cpp -B cpp/build -DCMAKE_BUILD_TYPE=Release -DMERCURY_BUILD_TESTS=ON
+cmake --build cpp/build --target api_tester --parallel 4
+(cd cpp/build && ctest -R recognition_score_test --output-on-failure)
 PYTHONPATH=model python3 -m unittest exporter.test_stream_conformer_cpp_exporter -v
 ```
 
-Android 라이브러리는 `bash cpp/export/android.sh --install`로 두 ABI를 빌드해 앱에 복사한다.
+Android 라이브러리는 저장소 루트에서 `cmake --build cpp/build --target export_android`로 두 ABI를 빌드한 뒤 `cmake --build cpp/build --target copy_android_to_app`으로 앱에 복사한다.

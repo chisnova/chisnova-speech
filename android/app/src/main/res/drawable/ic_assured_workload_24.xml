@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Material Symbols: assured_workload (Filled) - 의회 (Parliamentary) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+  <path
+      android:fillColor="#000000"
+      android:pathData="M80,800v-80h560v80H80ZM160,680v-280h80v280H160ZM360,680v-280h80v280H360ZM80,320v-60l400,-220 400,220v60H80ZM680,920l-140,-140 56,-56 84,84 168,-168 56,56L680,920ZM560,680v-280h80v280H560Z"/>
+</vector>

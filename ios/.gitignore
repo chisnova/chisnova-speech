@@ -1,0 +1,12 @@
+# XcodeGen 이 project.yml 에서 만들어낸다 — pbxproj 는 추적하지 않는다
+MercuryApp.xcodeproj/
+
+# 루트 CMake의 export_ios 산출물을 copy.sh로 복사한다
+Engine/lib/
+Engine/include/
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/

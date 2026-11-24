@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Legacy (kept for backward compatibility) -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="sf_orange">#FF6B35</color>
+    <color name="sf_orange_light">#FF8A56</color>
+    <color name="sf_gray_600">#4B5563</color>
+    <color name="sf_gray_100">#F3F4F6</color>
+    <color name="gray_400">#9CA3AF</color>
+
+    <!-- ===== Design System: Semantic Colors ===== -->
+
+    <!-- Brand / Primary -->
+    <color name="ds_primary">#2563EB</color>
+    <color name="ds_primary_light">#DBEAFE</color>
+    <color name="ds_primary_surface">#EFF6FF</color>
+    <color name="ds_primary_dark">#1E40AF</color>
+
+    <!-- Accent / Orange (Level 1) -->
+    <color name="ds_accent_orange">#F97316</color>
+    <color name="ds_accent_orange_light">#FFF7ED</color>
+    <color name="ds_accent_orange_surface">#FFEDD5</color>
+
+    <!-- Success / Green (Level 2) -->
+    <color name="ds_accent_green">#10B981</color>
+    <color name="ds_accent_green_light">#ECFDF5</color>
+    <color name="ds_accent_green_surface">#D1FAE5</color>
+
+    <!-- Purple (Level 3) -->
+    <color name="ds_accent_purple">#8B5CF6</color>
+    <color name="ds_accent_purple_light">#F5F3FF</color>
+    <color name="ds_accent_purple_surface">#EDE9FE</color>
+
+    <!-- Danger / Red -->
+    <color name="ds_danger">#EF4444</color>
+    <color name="ds_danger_light">#FEF2F2</color>
+
+    <!-- Warning / Amber -->
+    <color name="ds_warning">#F59E0B</color>
+
+    <!-- Text -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_tertiary">#94A3B8</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="success_text">#065F46</color>
+
+    <!-- Surface / Background -->
+    <color name="ds_bg">#F8FAFC</color>
+    <color name="ds_surface">#FFFFFF</color>
+    <color name="ds_surface_secondary">#F1F5F9</color>
+    <color name="ds_border">#E2E8F0</color>
+    <color name="ds_border_light">#F1F5F9</color>
+
+    <!-- Bottom Nav -->
+    <color name="ds_nav_active">#2563EB</color>
+    <color name="ds_nav_inactive">#94A3B8</color>
+
+    <!-- Overlay -->
+    <color name="ds_overlay">#66000000</color>
+
+    <!-- On-gradient text (welcome card subtitle) -->
+    <color name="ds_on_gradient_secondary">#DAE5FF</color>
+
+    <!-- Semantic text on colored backgrounds -->
+    <color name="ds_success_dark">#047857</color>
+    <color name="ds_danger_dark">#DC2626</color>
+</resources>

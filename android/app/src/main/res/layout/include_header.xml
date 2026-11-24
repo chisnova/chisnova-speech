@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/header_height"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:background="@color/ds_surface"
+    android:gravity="center_vertical"
+    android:elevation="1dp">
+
+    <ImageView
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_rounded_button"
+        android:padding="8dp"
+        android:src="@drawable/ic_chat_24"
+        app:tint="@color/ds_primary"
+        android:contentDescription="chat" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SpeakFlow"
+            android:textColor="@color/ds_primary"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영어 발음 마스터"
+            android:textColor="@color/text_tertiary"
+            android:textSize="12sp"
+            android:layout_marginTop="1dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_rounded_button"
+        android:contentDescription="profile"
+        android:padding="8dp"
+        app:tint="@color/text_secondary"
+        android:src="@drawable/ic_user_24"
+        android:layout_marginStart="8dp" />
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+    android:layout_marginTop="12dp">
+    <TextView android:id="@+id/purchaseTerms" style="@style/LegalFooterLink" android:text="이용약관  ›" />
+    <TextView android:id="@+id/purchasePrivacy" style="@style/LegalFooterLink" android:text="개인정보 처리방침  ›" />
+    <TextView android:id="@+id/purchaseSupport" style="@style/LegalFooterLink" android:text="구매 관련 문의  ›" />
+</LinearLayout>
